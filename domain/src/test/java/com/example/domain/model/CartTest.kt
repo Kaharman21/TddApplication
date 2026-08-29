@@ -6,8 +6,8 @@ import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 
 /**
- * Спецификация моделей корзины: Unit_Count выводится из количеств позиций,
- * а пустая корзина является корректно определённым значением. Требование 1.3.
+ * unitCount выводится из количеств позиций,
+ * а пустая корзина является корректно определённым значением.
  */
 class CartTest {
 
@@ -20,14 +20,12 @@ class CartTest {
                 cartItem(productId = "p3", quantity = 1),
             ),
         )
-
         assertEquals(6, cart.unitCount)
     }
 
     @Test
     fun `unitCount of a single item cart equals that item quantity`() {
         val cart = Cart(items = listOf(cartItem(productId = "p1", quantity = 4)))
-
         assertEquals(4, cart.unitCount)
     }
 

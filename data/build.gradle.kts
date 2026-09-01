@@ -37,8 +37,8 @@ android {
 }
 
 dependencies {
-    // Depends inward on the domain layer
-    implementation(project(":domain"))
+    // Зависит от domain; api — чтобы Hilt-код в :app видел domain-типы из привязок :data
+    api(project(":domain"))
 
     // Async
     implementation(libs.kotlinx.coroutines.android)

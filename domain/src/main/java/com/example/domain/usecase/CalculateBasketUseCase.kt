@@ -41,11 +41,11 @@ class CalculateBasketUseCase(
             BigDecimal.ZERO
         }
 
-        // Discounted_Total ограничен снизу нулём; округляется перед определением доставки
+        // DiscountedTotal ограничен снизу нулём; округляется перед определением доставки
         val exactDiscountedTotal = (subtotal - promoDiscount).coerceAtLeast(BigDecimal.ZERO)
         val roundedDiscountedTotal = Money.round(exactDiscountedTotal)
 
-        // В политику доставки уходит округлённый Discounted_Total
+        // В политику доставки уходит округлённый DiscountedTotal
         val shippingCost = shippingPolicy.shippingCostFor(roundedDiscountedTotal, cart.unitCount)
 
         val receipt = Receipt(

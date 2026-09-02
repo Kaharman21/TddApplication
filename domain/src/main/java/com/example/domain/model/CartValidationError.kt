@@ -10,7 +10,6 @@ import java.math.BigDecimal
  */
 sealed interface CartValidationError {
 
-    /** Идентификатор товара позиции, в которой обнаружена ошибка. */
     val productId: String
 
     /** Количество единиц в позиции меньше 1. */

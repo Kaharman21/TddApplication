@@ -28,17 +28,8 @@ import java.time.LocalDate
 
 /**
  * Оркестрация расчёта корзины: единственное место, где зафиксирован порядок правил
- * (промокод от Subtotal → Discounted_Total как разность → доставка по округлённому
- * Discounted_Total) и где происходит округление денежных полей чека.
- *
- * Тесты порядка правил и статусов работают на моках компонентов (`PromoCodeResolver`,
- * `PromoDiscountCalculator`, `ShippingPolicy`), чтобы проверять именно логику
- * оркестрации, а не арифметику. Сквозные примеры собирают реальные компоненты и мокают
- * только внешние зависимости (`PromoCodeRepository`, `ClockProvider`), поэтому проверяют
- * согласованную работу всех правил на конкретных числах.
- *
- * Числовое равенство `BigDecimal` проверяется через `compareTo` (`BigDecimal.equals`
- * учитывает scale), а форма результата (scale) — отдельным утверждением.
+ * (промокод от Subtotal → DiscountedTotal как разность → доставка по округлённому
+ * DiscountedTotal) и где происходит округление денежных полей чека.
  */
 class CalculateBasketUseCaseTest {
 
@@ -164,7 +155,7 @@ class CalculateBasketUseCaseTest {
 
         val result = useCase(cart, promoCode = "SAVE")
 
-        // В политику доставки уходит округлённый Discounted_Total 50.00, поэтому доставка бесплатна
+        // В политику доставки уходит округлённый DiscountedTotal 50.00, поэтому доставка бесплатна
         assertEquals(0, Money.of("50.00").compareTo(totalSlot.captured))
         val receipt = (result as BasketCalculationResult.Success).receipt
         assertEquals(0, Money.ZERO.compareTo(receipt.shippingCost))
@@ -190,7 +181,7 @@ class CalculateBasketUseCaseTest {
 
         val result = useCase(cart, promoCode = "BIG")
 
-        // Discounted_Total ограничен снизу нулём
+        // DiscountedTotal ограничен снизу нулём
         val receipt = (result as BasketCalculationResult.Success).receipt
         assertEquals(0, Money.ZERO.compareTo(receipt.discountedTotal))
     }
@@ -297,8 +288,6 @@ class CalculateBasketUseCaseTest {
         val expectedTotal = receipt.discountedTotal.add(receipt.shippingCost)
         assertEquals(0, expectedTotal.compareTo(receipt.total))
     }
-
-    // ----- Creation Method-хелперы -----
 
     /**
      * Собирает use case с реальными компонентами; внешние зависимости

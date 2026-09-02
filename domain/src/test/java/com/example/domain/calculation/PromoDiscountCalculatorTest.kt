@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 
 /**
- * Promo_Discount — процент от базы (Subtotal) без округления: округление применяется один раз при
+ * PromoDiscount — процент от базы (Subtotal) без округления: округление применяется один раз при
  * сборке итогового чека, поэтому сравнение идёт через `compareTo`.
  */
 class PromoDiscountCalculatorTest {

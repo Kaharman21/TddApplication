@@ -3,6 +3,7 @@ package com.example.domain.calculation
 import java.math.BigDecimal
 
 /**
+ * Получаем сумму скидки по промокоду
  * Процент от базы (Subtotal) без округления: округление применяется один раз при сборке чека.
  */
 class PromoDiscountCalculator {

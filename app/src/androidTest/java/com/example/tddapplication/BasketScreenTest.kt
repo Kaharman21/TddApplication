@@ -29,7 +29,7 @@ class BasketScreenTest {
     val composeRule = createComposeRule()
 
     @Test
-    fun `loading state shows a progress indicator`() {
+    fun loading_state_shows_a_progress_indicator() {
         composeRule.setContent {
             BasketScreen(
                 state = BasketUiState.Loading,
@@ -43,7 +43,7 @@ class BasketScreenTest {
     }
 
     @Test
-    fun `success state shows the receipt total`() {
+    fun success_state_shows_the_receipt_total() {
         val receipt = receiptWithTotal(Money.of("54.50"))
 
         composeRule.setContent {
@@ -61,7 +61,7 @@ class BasketScreenTest {
     }
 
     @Test
-    fun `error state shows a validation message`() {
+    fun error_state_shows_a_validation_message() {
         val errors = listOf(CartValidationError.InvalidQuantity(productId = "p1", quantity = 0))
 
         composeRule.setContent {
@@ -77,7 +77,7 @@ class BasketScreenTest {
     }
 
     @Test
-    fun `typing in the promo field triggers the change callback`() {
+    fun typing_in_the_promo_field_triggers_the_change_callback() {
         var captured = ""
 
         composeRule.setContent {
@@ -95,7 +95,7 @@ class BasketScreenTest {
     }
 
     @Test
-    fun `clicking apply triggers the apply callback`() {
+    fun clicking_apply_triggers_the_apply_callback() {
         var clicked = false
 
         composeRule.setContent {

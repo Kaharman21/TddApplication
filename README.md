@@ -23,7 +23,7 @@
 
 - **`:domain`** — чистый Kotlin, вся бизнес-логика (расчёт, скидки, доставка, модели). Не зависит от Android.
 - **`:data`** — источники данных: локальный список промокодов, демо-корзина, системная дата. Реализует интерфейсы из `:domain`.
-- **`:app`** — Android-модуль. Собирает зависимости через Hilt. Содержательного экрана нет — фокус на логике.
+- **`:app`** — Android-модуль. Собирает зависимости через Hilt и содержит экран корзины на Compose (`BasketScreen` + `BasketViewModel`), покрытый UI-тестами.
 
 Зависимости направлены внутрь: `:app` → `:data` → `:domain`.
 
@@ -45,7 +45,16 @@ Retrofit и kotlinx.serialization подключены как задел под 
 
 ## Запуск тестов
 
+Unit-тесты (JVM):
+
 ```
 gradlew :domain:test
 gradlew :data:testDebugUnitTest
+gradlew :app:testDebugUnitTest
+```
+
+UI-тесты экрана корзины (нужен эмулятор или устройство):
+
+```
+gradlew :app:connectedDebugAndroidTest
 ```
